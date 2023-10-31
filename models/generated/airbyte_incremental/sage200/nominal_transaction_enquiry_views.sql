@@ -1,7 +1,7 @@
 {{ config(
     indexes = [{'columns':['_airbyte_unique_key'],'unique':True}],
     unique_key = "_airbyte_unique_key",
-    schema = "sage200_etl",
+    schema = "sage200_etl_frl",
     tags = [ "top-level" ]
 ) }}
 -- Final base SQL model
@@ -29,7 +29,7 @@ select
     {{ current_timestamp() }} as _airbyte_normalized_at,
     _airbyte_nominal_tra___enquiry_views_hashid
 from {{ ref('nominal_transaction_enquiry_views_scd') }}
--- nominal_transaction_enquiry_views from {{ source('sage200_etl', '_airbyte_raw_nominal_transaction_enquiry_views') }}
+-- nominal_transaction_enquiry_views from {{ source('sage200_etl_frl', '_airbyte_raw_nominal_transaction_enquiry_views') }}
 where 1 = 1
 and _airbyte_active_row = 1
 {{ incremental_clause('_airbyte_emitted_at', this) }}

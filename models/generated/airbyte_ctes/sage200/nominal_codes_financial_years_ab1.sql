@@ -1,6 +1,6 @@
 {{ config(
     indexes = [{'columns':['_airbyte_emitted_at'],'type':'btree'}],
-    schema = "_airbyte_sage200_etl",
+    schema = "_airbyte_sage200_etl_frl",
     tags = [ "nested-intermediate" ]
 ) }}
 -- SQL model to parse JSON blob stored in a single column and extract into separated field columns as described by the JSON Schema

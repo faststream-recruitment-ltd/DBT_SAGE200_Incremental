@@ -1,6 +1,6 @@
 {{ config(
     indexes = [{'columns':['_airbyte_emitted_at'],'type':'btree'}],
-    schema = "sage200_etl",
+    schema = "sage200_etl_frl",
     tags = [ "nested" ]
 ) }}
 -- Final base SQL model
@@ -24,7 +24,7 @@ select
     {{ current_timestamp() }} as _airbyte_normalized_at,
     _airbyte_financial_years_hashid
 from {{ ref('nominal_codes_financial_years_scd') }}
--- financial_years from {{ source('sage200_etl', '_airbyte_raw_nominal_codes') }}
+-- financial_years from {{ source('sage200_etl_frl', '_airbyte_raw_nominal_codes') }}
 where 1 = 1
 {{ incremental_clause('_airbyte_emitted_at', this) }}
 

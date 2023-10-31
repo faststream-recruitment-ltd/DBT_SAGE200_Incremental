@@ -1,7 +1,7 @@
 {{ config(
     indexes = [{'columns':['_airbyte_emitted_at'],'type':'btree'}],
     unique_key = '_airbyte_ab_id',
-    schema = "sage200_etl",
+    schema = "sage200_etl_frl",
     post_hook = ["
                     {%
                         set scd_table_relation = adapter.get_relation(
@@ -37,6 +37,6 @@ select
     {{ current_timestamp() }} as _airbyte_normalized_at,
     _airbyte_financial_year_period_views_hashid
 from {{ ref('financial_year_period_views_ab3') }}
--- financial_year_period_views from {{ source('sage200_etl', '_airbyte_raw_financial_year_period_views') }}
+-- financial_year_period_views from {{ source('sage200_etl_frl', '_airbyte_raw_financial_year_period_views') }}
 where 1 = 1
 

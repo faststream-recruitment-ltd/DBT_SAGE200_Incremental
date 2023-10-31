@@ -1,7 +1,7 @@
 {{ config(
     indexes = [{'columns':['_airbyte_unique_key'],'unique':True}],
     unique_key = "_airbyte_unique_key",
-    schema = "sage200_etl",
+    schema = "sage200_etl_frl",
     tags = [ "top-level" ]
 ) }}
 -- Final base SQL model
@@ -58,7 +58,7 @@ select
     {{ current_timestamp() }} as _airbyte_normalized_at,
     _airbyte_nominal_codes_hashid
 from {{ ref('nominal_codes_scd') }}
--- nominal_codes from {{ source('sage200_etl', '_airbyte_raw_nominal_codes') }}
+-- nominal_codes from {{ source('sage200_etl_frl', '_airbyte_raw_nominal_codes') }}
 where 1 = 1
 and _airbyte_active_row = 1
 {{ incremental_clause('_airbyte_emitted_at', this) }}

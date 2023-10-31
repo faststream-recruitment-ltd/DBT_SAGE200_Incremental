@@ -1,11 +1,11 @@
 {{ config(
     indexes = [{'columns':['_airbyte_emitted_at'],'type':'btree'}],
     unique_key = '_airbyte_ab_id',
-    schema = "_airbyte_sage200_etl",
+    schema = "_airbyte_sage200_etl_frl",
     tags = [ "top-level-intermediate" ]
 ) }}
 -- SQL model to parse JSON blob stored in a single column and extract into separated field columns as described by the JSON Schema
--- depends_on: {{ source('sage200_etl', '_airbyte_raw_customers') }}
+-- depends_on: {{ source('sage200_etl_frl', '_airbyte_raw_customers') }}
 select
     {{ json_extract_scalar('_airbyte_data', ['office_type'], ['office_type']) }} as office_type,
     {{ json_extract_scalar('_airbyte_data', ['account_type'], ['account_type']) }} as account_type,
@@ -108,7 +108,7 @@ select
     _airbyte_ab_id,
     _airbyte_emitted_at,
     {{ current_timestamp() }} as _airbyte_normalized_at
-from {{ source('sage200_etl', '_airbyte_raw_customers') }} as table_alias
+from {{ source('sage200_etl_frl', '_airbyte_raw_customers') }} as table_alias
 -- customers
 where 1 = 1
 {{ incremental_clause('_airbyte_emitted_at', this) }}

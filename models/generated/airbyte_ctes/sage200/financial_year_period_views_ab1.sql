@@ -1,11 +1,11 @@
 {{ config(
     indexes = [{'columns':['_airbyte_emitted_at'],'type':'btree'}],
     unique_key = '_airbyte_ab_id',
-    schema = "_airbyte_sage200_etl",
+    schema = "_airbyte_sage200_etl_frl",
     tags = [ "top-level-intermediate" ]
 ) }}
 -- SQL model to parse JSON blob stored in a single column and extract into separated field columns as described by the JSON Schema
--- depends_on: {{ source('sage200_etl', '_airbyte_raw_financial_year_period_views') }}
+-- depends_on: {{ source('sage200_etl_frl', '_airbyte_raw_financial_year_period_views') }}
 select
     {{ json_extract_scalar('_airbyte_data', ['period_end_date'], ['period_end_date']) }} as period_end_date,
     {{ json_extract_scalar('_airbyte_data', ['number_of_periods_in_year'], ['number_of_periods_in_year']) }} as number_of_periods_in_year,
@@ -19,7 +19,7 @@ select
     _airbyte_ab_id,
     _airbyte_emitted_at,
     {{ current_timestamp() }} as _airbyte_normalized_at
-from {{ source('sage200_etl', '_airbyte_raw_financial_year_period_views') }} as table_alias
+from {{ source('sage200_etl_frl', '_airbyte_raw_financial_year_period_views') }} as table_alias
 -- financial_year_period_views
 where 1 = 1
 

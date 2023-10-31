@@ -1,7 +1,7 @@
 {{ config(
     indexes = [{'columns':['_airbyte_active_row','_airbyte_unique_key_scd','_airbyte_emitted_at'],'type': 'btree'}],
     unique_key = "_airbyte_unique_key_scd",
-    schema = "_airbyte_sage200_etl_scd",
+    schema = "_airbyte_sage200_etl_scd_frl",
     post_hook = ["
                     {%
                     set final_table_relation = adapter.get_relation(
@@ -48,7 +48,7 @@
                     -- We have to have a non-empty query, so just do a noop delete
                     delete from {{ this }} where 1=0
                     {% endif %}
-                    ","delete from _airbyte_sage200_etl_stg.nominal_codes_financ_years_period_balances_stg where _airbyte_emitted_at != (select max(_airbyte_emitted_at) from _airbyte_sage200_etl_stg.nominal_codes_financ_years_period_balances_stg)"],
+                    ","delete from _airbyte_sage200_etl_stg_frl.nominal_codes_financ_years_period_balances_stg where _airbyte_emitted_at != (select max(_airbyte_emitted_at) from _airbyte_sage200_etl_stg_frl.nominal_codes_financ_years_period_balances_stg)"],
     tags = [ "top-level" ]
 ) }}
 -- depends_on: ref('nominal_codes_financ_years_period_balances_stg')
@@ -59,7 +59,7 @@ new_data as (
     select
         *
     from {{ ref('nominal_codes_financ_years_period_balances_stg')  }}
-    -- nominal_codes_financ_years_period_balances from {{ source('sage200_etl', '_airbyte_raw_nominal_codes') }}
+    -- nominal_codes_financ_years_period_balances from {{ source('sage200_etl_frl', '_airbyte_raw_nominal_codes') }}
     where 1 = 1
     {{ incremental_clause('_airbyte_emitted_at', this) }}
 ),
@@ -95,7 +95,7 @@ input_data as (
 input_data as (
     select *
     from {{ ref('nominal_codes_financ_years_period_balances_stg')  }}
-    -- nominal_codes_financ_years_period_balances from {{ source('sage200_etl', '_airbyte_raw_nominal_codes') }}
+    -- nominal_codes_financ_years_period_balances from {{ source('sage200_etl_frl', '_airbyte_raw_nominal_codes') }}
 ),
 {% endif %}
 scd_data as (

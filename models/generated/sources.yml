@@ -1,6 +1,6 @@
 version: 2
 sources:
-- name: sage200_etl
+- name: sage200_etl_frl
   quoting:
     database: true
     schema: false

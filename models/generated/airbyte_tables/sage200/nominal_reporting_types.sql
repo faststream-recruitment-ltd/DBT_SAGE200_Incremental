@@ -1,7 +1,7 @@
 {{ config(
     indexes = [{'columns':['_airbyte_emitted_at'],'type':'btree'}],
     unique_key = '_airbyte_ab_id',
-    schema = "sage200_etl",
+    schema = "sage200_etl_frl",
     post_hook = ["
                     {%
                         set scd_table_relation = adapter.get_relation(
@@ -31,6 +31,6 @@ select
     {{ current_timestamp() }} as _airbyte_normalized_at,
     _airbyte_nominal_reporting_types_hashid
 from {{ ref('nominal_reporting_types_ab3') }}
--- nominal_reporting_types from {{ source('sage200_etl', '_airbyte_raw_nominal_reporting_types') }}
+-- nominal_reporting_types from {{ source('sage200_etl_frl', '_airbyte_raw_nominal_reporting_types') }}
 where 1 = 1
 
