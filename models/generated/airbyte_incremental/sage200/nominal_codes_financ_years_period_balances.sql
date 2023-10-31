@@ -26,5 +26,6 @@ select
 from {{ ref('nominal_codes_financ_years_period_balances_scd') }}
 -- period_balancesfrom {{ source('sage200_etl_frl', '_airbyte_raw_nominal_codes') }}
 where 1 = 1
+and _airbyte_active_row = 1
 {{ incremental_clause('_airbyte_emitted_at', this) }}
 
