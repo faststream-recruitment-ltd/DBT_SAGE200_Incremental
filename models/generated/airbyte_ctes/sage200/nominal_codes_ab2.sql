@@ -18,7 +18,7 @@ select
     cast(report_category_id as {{ dbt_utils.type_float() }}) as report_category_id,
     cast(consolidated_nominal_department as {{ dbt_utils.type_string() }}) as consolidated_nominal_department,
     {{ cast_to_boolean('use_batch_postings') }} as use_batch_postings,
-    nominal_code_id,
+    cast(nominal_code_id as {{ dbt_utils.type_bigint() }}) as nominal_code_id,
     cast(consolidated_nominal_cost_centre as {{ dbt_utils.type_string() }}) as consolidated_nominal_cost_centre,
     cast(debit_balance_year_to_date as {{ dbt_utils.type_float() }}) as debit_balance_year_to_date,
     cast(analysis_code_2 as {{ dbt_utils.type_string() }}) as analysis_code_2,

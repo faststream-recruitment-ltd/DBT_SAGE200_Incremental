@@ -14,7 +14,7 @@ select
     cast(original_budget_value as {{ dbt_utils.type_float() }}) as original_budget_value,
     cast(budget_profile_id as {{ dbt_utils.type_float() }}) as budget_profile_id,
     cast(closing_balance as {{ dbt_utils.type_float() }}) as closing_balance,
-    financial_years_id,
+    cast(financial_years_id as {{ dbt_utils.type_bigint() }}) as financial_years_id,
     cast(date_time_created as timestamp) as date_time_created,
     cast(year_relative_to_current_year as {{ dbt_utils.type_float() }}) as year_relative_to_current_year,
     cast(financial_year_id as {{ dbt_utils.type_float() }}) as financial_year_id,
