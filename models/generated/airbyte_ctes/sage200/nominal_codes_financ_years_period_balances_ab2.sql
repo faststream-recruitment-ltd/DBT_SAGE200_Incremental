@@ -6,7 +6,7 @@
 -- SQL model to cast each column to its adequate SQL type converted from the JSON schema type
 -- depends_on: {{ ref('nominal_codes_financ_years_period_balances_ab1') }}
 select
-    cast(nominal_code_id as {{ dbt_utils.type_bigint() }}) as nominal_code_id,
+    cast(nominal_code_id as {{ dbt_utils.type_float() }}) as nominal_code_id, 
     cast(period_balance as {{ dbt_utils.type_float() }}) as period_balance,
     cast(adjustment_after_year_end_close as {{ dbt_utils.type_float() }}) as adjustment_after_year_end_close,
     cast(consolidated_amount as {{ dbt_utils.type_float() }}) as consolidated_amount,

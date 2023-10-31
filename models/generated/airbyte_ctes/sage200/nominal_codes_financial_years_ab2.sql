@@ -7,7 +7,7 @@
 -- depends_on: {{ ref('nominal_codes_financial_years_ab1') }}
 select
     cast(budget_value as {{ dbt_utils.type_float() }}) as budget_value,
-    cast(nominal_code_id as {{ dbt_utils.type_float() }}) as nominal_code_id,
+    cast(nominal_code_id as {{ dbt_utils.type_float() }}) as nominal_code_id, 
     cast(date_time_updated as timestamp) as date_time_updated,
     period_balances,
     cast(adjustment_after_year_end_close as {{ dbt_utils.type_float() }}) as adjustment_after_year_end_close,
