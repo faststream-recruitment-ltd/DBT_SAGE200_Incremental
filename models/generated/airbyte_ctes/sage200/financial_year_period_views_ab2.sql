@@ -7,9 +7,9 @@
 -- SQL model to cast each column to its adequate SQL type converted from the JSON schema type
 -- depends_on: {{ ref('financial_year_period_views_ab1') }}
 select
-    cast(period_end_date as {{ dbt_utils.type_string() }}) as period_end_date,
+    cast(period_end_date as timestamp) as period_end_date,
     cast(number_of_periods_in_year as {{ dbt_utils.type_float() }}) as number_of_periods_in_year,
-    cast(period_start_date as {{ dbt_utils.type_string() }}) as period_start_date,
+    cast(period_start_date as timestamp) as period_start_date,
     cast(accounting_period_id as {{ dbt_utils.type_float() }}) as accounting_period_id,
     cast(year_relative_to_current_year as {{ dbt_utils.type_float() }}) as year_relative_to_current_year,
     cast(period_number as {{ dbt_utils.type_float() }}) as period_number,
